@@ -9,6 +9,7 @@ from preprocessor import PreProcessor
 from postprocessor import PostProcessor
 from client_adapter import HTTPModelClientAdapter
 from data_model.data_models import LLMGenContext, ClientResponse
+from config import Config
 
 app = Sanic("LLMService")
 Extend(app)
@@ -23,8 +24,8 @@ preprocessor = PreProcessor(adapter=adapter)
 postprocessor = PostProcessor()
 
 # Configurable endpoint and auth key
-MODEL_ENDPOINT = "https://42865dc7-b356-4219-b074-d615d74b3314.job.console.elementai.com/v1/chat/completions"
-AUTH_KEY = "8o30OElfDYV_D6YbbznT0A:GDC2BsXIfSdfjv9iWka3V4MkazpvHfe0cCwXohzbP0Q"
+MODEL_ENDPOINT = Config.MODEL_ENDPOINT
+AUTH_KEY = Config.AUTH_KEY
 
 @app.post("/v2/models/llm_generic_reasoner_test/infer")
 async def infer(request: Request):

@@ -1,5 +1,7 @@
 import logging
 from transformers import AutoTokenizer
+from config import Config
+
 
 class HTTPModelClientAdapter:
     """
@@ -10,9 +12,11 @@ class HTTPModelClientAdapter:
         self.logger = logging.getLogger("HTTPModelClientAdapter")
         logging.basicConfig(level=logging.INFO)
 
+        model_name = model_name_or_path or Config.TOKENIZER_MODEL_NAME
+
         try:
-            self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-            self.logger.info(f"LLaMA tokenizer loaded from: {model_name_or_path}")
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+            self.logger.info(f"Tokenizer loaded from: {model_name}")
         except Exception as e:
             self.logger.error(f"Failed to load tokenizer: {e}")
             self.tokenizer = None
